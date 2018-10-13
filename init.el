@@ -29,6 +29,7 @@
  ;; If there is more than one, they won't work right.
  '(magit-blame-heading ((t (:background "grey25" :foreground "gray50")))))
 
+(load "~/.emacs.d/custom")
 (load "~/.emacs.d/init-settings")
 (load "~/.emacs.d/init-core")
 (load "~/.emacs.d/init-prog")
@@ -43,4 +44,4 @@
  '(js2-indent-switch-body t)
  '(package-selected-packages
    (quote
-    (rainbow-delimiters s paredit smartparens flycheck company yasnippet git-timemachine magit helm-projectile projectile wgrep-helm helm-descbinds helm-git-grep helm-swoop helm undo-tree diminish use-package))))
+    (gited rainbow-delimiters s paredit smartparens flycheck company yasnippet git-timemachine magit helm-projectile projectile wgrep-helm helm-descbinds helm-git-grep helm-swoop helm undo-tree diminish use-package))))

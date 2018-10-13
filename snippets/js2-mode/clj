@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: JSON console.log
+# key: clj
+# --
+console.log(JSON.stringify($0, null, 2));

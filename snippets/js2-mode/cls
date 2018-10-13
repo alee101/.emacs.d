@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: console.log str
+# key: cls
+# --
+console.log('------------------------------ $0 ------------------------------');

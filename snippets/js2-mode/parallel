@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: async.parallel
+# key: ap
+# --
+async.parallel({
+  $0
+}, cb);

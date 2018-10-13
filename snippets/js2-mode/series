@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: async.series
+# key: as
+# --
+async.series([
+  cb => $0
+], cb);

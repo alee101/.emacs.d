@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: taskConfig
+# key: tc
+# --
+[$0]: {
+  getTemplate: (ctx, workflowState) => ({
+
+  }),
+  onComplete: (ctx, workflowState, cb) => {
+
+  },
+  nextTemplateConfig: (ctx, workflowState, updates) => ({
+
+  }),
+},

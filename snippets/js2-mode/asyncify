@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: async.asyncify
+# key: aa
+# --
+async.asyncify($1 => {
+  $0
+})

@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: boilerplate
+# key: <!
+# --
+<!doctype html>
+<html>
+  <head>
+    <title>$1</title>
+  </head>
+  <body>
+    $2
+  </body>
+</html>

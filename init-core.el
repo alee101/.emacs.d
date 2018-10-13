@@ -66,15 +66,16 @@
   :config
   (progn
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+    (define-key projectile-mode-map (kbd "C-c p t") 'toggle-test)
     (setq projectile-completion-system 'helm)
     (add-to-list 'projectile-globally-ignored-files "node-modules")))
 
 (use-package helm-projectile
-  :defer t
   :after (helm projectile)
   :config
   (progn
     (helm-projectile-on)
+    (define-key projectile-mode-map (kbd "C-c p C-f") 'helm-projectile-find-file-dwim)
     (setq projectile-switch-project-action 'helm-projectile)))
 
 (use-package magit
@@ -82,6 +83,7 @@
          ("C-c C-b" . magit-blame-addition))
   :config (setq magit-diff-refine-hunk t))
 
+(use-package gited)
 (use-package git-timemachine)
 
 (use-package yasnippet
@@ -132,21 +134,8 @@
 (use-package s)
 
 
-;; general custom functions
-(defun comment-or-uncomment-region-or-line ()
-  "Comments or uncomments the region or the current line if there's no active region."
-  (interactive)
-  (let (beg end)
-    (if (region-active-p)
-        (setq beg (region-beginning) end (region-end))
-      (setq beg (line-beginning-position) end (line-end-position)))
-    (comment-or-uncomment-region beg end)))
-
-
-;; general bindings
 (global-set-key (kbd "s-+") 'text-scale-increase)
 (global-set-key (kbd "s--") 'text-scale-decrease)
-(global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "M-j") 'delete-indentation)
 (global-set-key (kbd "M-<backspace>") (lambda ()
                                         (interactive)
@@ -155,6 +144,4 @@
 (global-set-key (kbd "C-x E") 'apply-macro-to-region-lines)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-
-;; hooks
 (add-hook 'prog-mode-hook 'subword-mode)

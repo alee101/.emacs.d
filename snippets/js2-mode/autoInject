@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: async.autoInject
+# key: ai
+# --
+async.autoInject({
+  $0
+}, cb);

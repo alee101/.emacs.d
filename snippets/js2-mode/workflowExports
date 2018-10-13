@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: workflowExports
+# key: we
+# --
+const workflowExports = workflowSDK.buildWorkflow(workflowId, taskConfigs);
+
+module.exports = {
+  workflowId,
+  workflowConfig: workflowExports.workflowConfig,
+  loanProjections: workflowExports.loanProjections,
+  getTaskTemplate: workflowExports.getTaskTemplate,
+  transitionTask: workflowExports.transitionTask,
+
+  processConfig: _.constant({
+  }),
+  processProperties,
+  taskMap,
+  isWorkflowsV2: true,
+};

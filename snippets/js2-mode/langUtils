@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: langUtils
+# key: l
+# --
+langUtils.provide(cb$0)

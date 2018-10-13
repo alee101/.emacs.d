@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: span
+# key: span
+# --
+$\text{span}($0)$
