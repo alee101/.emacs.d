@@ -17,7 +17,7 @@
  '(js2-indent-switch-body t))
 
 (use-package typescript-mode
-  :mode "\\.ts\\'"
+  :mode "\\.tsx\\'"
   :config
   (progn
     (setq typescript-indent-level 2)))

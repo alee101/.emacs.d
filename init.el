@@ -45,3 +45,4 @@
  '(package-selected-packages
    (quote
     (gited rainbow-delimiters s paredit smartparens flycheck company yasnippet git-timemachine magit helm-projectile projectile wgrep-helm helm-descbinds helm-git-grep helm-swoop helm undo-tree diminish use-package))))
+(put 'dired-find-alternate-file 'disabled nil)
