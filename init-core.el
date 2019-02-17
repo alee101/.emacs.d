@@ -9,13 +9,6 @@
   :init (global-undo-tree-mode)
   :defer t)
 
-(use-package ido
-  :bind ("C-x C-f" . ido-find-file)
-  :config
-  (progn
-    (ido-mode t)
-    (setq ido-enable-flex-matching t)))
-
 (use-package helm
   :diminish helm-mode
   :init (progn
@@ -25,7 +18,7 @@
   :bind (("C-x b" . helm-mini)
          ;; ("C-x C-b" . helm-buffers-list)
          ("C-x f" . helm-find)
-         ;; ("C-x C-f" . helm-find-files)
+         ("C-x C-f" . helm-find-files)
          ("C-x C-r" . helm-recentf)
          ("C-x C-o" . helm-occur)
          ("C-x c SPC" . helm-all-mark-rings)
@@ -145,3 +138,5 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (add-hook 'prog-mode-hook 'subword-mode)
+
+(setq projectile-indexing-method 'alien)
