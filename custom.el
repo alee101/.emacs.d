@@ -37,7 +37,14 @@
 
 ;; Blend JS stuff
 (defun blend/backend-relative-file-name (file-name)
-  (file-relative-name file-name "/Users/albertlee/blend/lending/backend/"))
+  ;; (file-relative-name file-name "/Users/albertlee/blend/lending/backend/")
+  (file-relative-name file-name "/Users/albertlee/blend/running-lending/lending/backend/")
+  )
+
+(defun blend/frontend-relative-file-name (file-name)
+  (file-relative-name file-name "/Users/albertlee/blend/lending/frontend/lender-react/")
+  ;; (file-relative-name file-name "/Users/albertlee/blend/running-lending/lending/backend/")
+  )
 
 (defun blend/open-backend-term ()
   (if (get-buffer "*backend-test-term*")
@@ -52,6 +59,15 @@
       (process-send-string
        "*backend-test-term*"
        (s-lex-format "cd ~/blend/lending/backend && npm run testFast -- --files='${relative-file-name}'")))))
+
+(defun blend/run-cur-frontend-test ()
+  (interactive)
+  (let ((relative-file-name (blend/frontend-relative-file-name buffer-file-name)))
+    (progn
+      (blend/open-backend-term)
+      (process-send-string
+       "*backend-test-term*"
+       (s-lex-format "cd ~/blend/lending/frontend/lender-react/ && sh ./bin/test/jest.sh \"$@\" \"${relative-file-name}\"")))))
 
 (defun blend/lint-cur-file ()
   (interactive)
@@ -117,12 +133,13 @@
   (let ((file-parts (split-string buffer-file-name "/")))
     (cond ((string-suffix-p ".go" buffer-file-name) (toggle-test-go buffer-file-name))
           ;; assuming js otherwise for now
+          ((member "borrower-react" file-parts) (blend/toggle-test-frontend-react file-parts))
           ((member "lender-react" file-parts) (blend/toggle-test-frontend-react file-parts))
           ((member "frontend" file-parts) (blend/toggle-test-frontend-angular buffer-file-name))
           ((member "backend" file-parts) (blend/toggle-test-backend buffer-file-name)))))
 
 (global-set-key (kbd "C-c j l") 'blend/lint-cur-file)
-(global-set-key (kbd "C-c j t") 'blend/run-cur)
+(global-set-key (kbd "C-c j t") 'blend/run-cur-test)
 (global-set-key (kbd "C-c j d") 'blend/toggle-dist)
 
 

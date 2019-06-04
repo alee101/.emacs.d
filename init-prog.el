@@ -81,6 +81,11 @@
 
 
 
+;; Python
+(setq python-shell-interpreter "python3")
+
+
+
 ;; Haskell
 (use-package haskell-mode)
 
@@ -88,7 +93,10 @@
 
 ;; Go
 (use-package go-mode
-  :config (add-hook 'before-save-hook #'gofmt-before-save))
+  :config
+  (progn
+    (setq gofmt-command "goimports")
+    (add-hook 'before-save-hook #'gofmt-before-save)))
 
 
 
@@ -101,3 +109,8 @@
         TeX-parse-self t
         TeX-save-query nil
         TeX-PDF-mode t))
+
+
+
+;; Protobuf
+(require 'protobuf-mode)

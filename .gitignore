@@ -1,6 +1,8 @@
 abbrev_defs
 auto-save-list
 bookmarks
+eshell
 ido.last
 projectile-bookmarks.eld
 recentf
+temp.el
