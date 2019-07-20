@@ -1,9 +1,5 @@
 ;;; init-extras.el --- some nice packages I'm not currently using
 
-(use-package ace-jump-mode
-  :disabled
-  :bind ("C-c SPC" . ace-jump-mode))
-
 (use-package aggressive-indent-mode)
 
 (use-package auto-yasnippet

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: timeout
+# key: timeout
+# --
+await new Promise(r => setTimeout(r, $1));

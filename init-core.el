@@ -9,6 +9,10 @@
   :init (global-undo-tree-mode)
   :defer t)
 
+(use-package ace-jump-mode
+  :defer t
+  :bind ("C-c SPC" . ace-jump-mode))
+
 (use-package helm
   :diminish helm-mode
   :init (progn

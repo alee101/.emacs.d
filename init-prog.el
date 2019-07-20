@@ -24,6 +24,7 @@
 
 (use-package tide
   :ensure t
+  :disabled
   :after (typescript-mode company flycheck)
   :hook ((typescript-mode . tide-setup)
          (typescript-mode . tide-hl-identifier-mode)
@@ -114,3 +115,7 @@
 
 ;; Protobuf
 (require 'protobuf-mode)
+
+
+
+(use-package restclient)

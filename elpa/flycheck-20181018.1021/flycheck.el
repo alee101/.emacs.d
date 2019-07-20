@@ -7640,7 +7640,7 @@ enabled. "
   :safe #'flycheck-string-list-p)
 
 (flycheck-define-checker go-vet
-  "A Go syntax checker using the `go tool vet' command.
+  "A Go syntax checker using the `go vet' command.
 
 See URL `https://golang.org/cmd/go/' and URL
 `https://golang.org/cmd/vet/'."
@@ -7657,7 +7657,7 @@ See URL `https://golang.org/cmd/go/' and URL
   ;; We must explicitly check whether the "vet" tool is available
   :predicate (lambda ()
                (let ((go (flycheck-checker-executable 'go-vet)))
-                 (member "vet" (ignore-errors (process-lines go "tool")))))
+                 (member "vet" (ignore-errors (process-lines go)))))
   :next-checkers (go-build
                   go-test
                   ;; Fall back if `go build' or `go test' can be used
@@ -7667,10 +7667,10 @@ See URL `https://golang.org/cmd/go/' and URL
   :verify (lambda (_)
             (let* ((go (flycheck-checker-executable 'go-vet))
                    (have-vet (member "vet" (ignore-errors
-                                             (process-lines go "tool")))))
+                                             (process-lines go)))))
               (list
                (flycheck-verification-result-new
-                :label "go tool vet"
+                :label "go vet"
                 :message (if have-vet "present" "missing")
                 :face (if have-vet 'success '(bold error)))))))
 
