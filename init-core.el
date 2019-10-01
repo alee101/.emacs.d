@@ -44,6 +44,10 @@
     (define-key isearch-mode-map (kbd "M-i") 'helm-swoop-from-isearch)
     (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)))
 
+(use-package helm-rg
+  :disabled
+  :bind (("C-c g" . helm-rg)))
+
 (use-package helm-git-grep
   :bind (("C-c C-g" . helm-git-grep-at-point)
          ("C-c d" . helm-grep-do-git-grep)

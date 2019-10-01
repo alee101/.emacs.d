@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: newtest
+# key: newtest
+# --
+import * as expect from 'expect.js';
+import * as _ from 'lodash';
+import * as setupUtils from $0
+
+describe('`(replace-regexp-in-string "Tests?$" "" (file-name-sans-extension (file-name-nondirectory buffer-file-name)))`', () => {
+  let ctx: Ictx;
+
+  beforeEach(async () => ({ ctx } = await setupUtils.setupP()));
+});
