@@ -30,6 +30,43 @@
            fill-column)))
     (call-interactively #'fill-paragraph)))
 
+(defun base64-encode-region-no-break ()
+  (interactive)
+  (base64-encode-region (mark) (point) t))
+
+(defun get-git-host-url ()
+  (let ((remote-url (magit-get "remote" (magit-get-remote) "url")))
+    (string-match (rx "git@"
+                      (group (zero-or-more (not (any ":")))) ":" ; host
+                      (group (zero-or-more (not (any "/")))) "/" ; project
+                      (group (zero-or-more (not (any ".")))) ".git") ; repo
+                  remote-url)
+    (s-concat "https://" (match-string 1 remote-url) "/" (match-string 2 remote-url) "/" (match-string 3 remote-url))))
+
+(defun get-github-url ()
+  (interactive)
+  (let ((line-num (format-mode-line "%l")))
+    (s-concat (get-git-host-url) "/blob/master/" (magit-file-relative-name buffer-file-name) "#L" line-num)))
+
+(defun copy-github-url ()
+  (interactive)
+  (kill-new (get-github-url)))
+
+(defun goto-github-url ()
+  (interactive)
+  (browse-url (get-github-url)))
+
+(defun get-github-commit-url ()
+  (interactive)
+  (let ((commit-hash (thing-at-point 'word)))
+    (s-concat (get-git-host-url) "/commit/" commit-hash)))
+
+(defun goto-github-commit-url ()
+  (interactive)
+  (browse-url (get-github-commit-url)))
+
+(global-set-key (kbd "C-c h h") 'goto-github-url)
+(global-set-key (kbd "C-c h c") 'goto-github-commit-url)
 (global-set-key (kbd "M-;") 'comment-or-uncomment-region-or-line)
 (global-set-key (kbd "C-x K") 'delete-file-and-buffer)
 (global-set-key [remap fill-paragraph] #'endless/fill-or-unfill)
@@ -37,8 +74,8 @@
 
 ;; Blend JS stuff
 (defun blend/backend-relative-file-name (file-name)
-  ;; (file-relative-name file-name "/Users/albertlee/blend/lending/backend/")
-  (file-relative-name file-name "/Users/albertlee/blend/running-lending/lending/backend/")
+  (file-relative-name file-name "/Users/albertlee/blend/lending/backend/")
+  ;; (file-relative-name file-name "/Users/albertlee/blend/running-lending/lending/backend/")
   )
 
 (defun blend/frontend-relative-file-name (file-name)
@@ -121,6 +158,12 @@
       "/__tests__/"
       (replace-regexp-in-string ".ts" ".spec.ts" (car (last file-parts)))))))
 
+(defun blend/toggle-test-ts-service-file-name (file-name)
+  (find-file
+   (if (string-match-p "server/test/" file-name)
+      (replace-regexp-in-string "test/" "src/" (replace-regexp-in-string ".test.ts" ".ts" file-name))
+    (replace-regexp-in-string "src/" "test/" (replace-regexp-in-string ".ts" ".test.ts" file-name)))))
+
 (defun toggle-test-go (file-name)
   (find-file
    (if (string-suffix-p "_test.go" file-name)
@@ -136,12 +179,22 @@
           ((member "borrower-react" file-parts) (blend/toggle-test-frontend-react file-parts))
           ((member "lender-react" file-parts) (blend/toggle-test-frontend-react file-parts))
           ((member "frontend" file-parts) (blend/toggle-test-frontend-angular buffer-file-name))
-          ((member "backend" file-parts) (blend/toggle-test-backend buffer-file-name)))))
+          ((member "backend" file-parts) (blend/toggle-test-backend buffer-file-name))
+          ((member "server" file-parts) (blend/toggle-test-ts-service-file-name buffer-file-name)))))
 
 (global-set-key (kbd "C-c j l") 'blend/lint-cur-file)
 (global-set-key (kbd "C-c j t") 'blend/run-cur-test)
 (global-set-key (kbd "C-c j d") 'blend/toggle-dist)
 
+(defun split-args ()
+  (interactive)
+  (re-search-forward "(")
+  (set-mark (point))
+  (re-search-forward ")")
+  (backward-char)
+  (let ((replacement (mapconcat 'identity (split-string (buffer-substring (mark) (point)) ",") ",\n")))
+    (delete-region (mark) (point))
+    (insert "\n" replacement ",\n")))
 
 ;; More JS stuff
 (defun rm-console-logs ()
@@ -153,20 +206,22 @@
       (beginning-of-line)
       (kill-whole-line))))
 
-(defun toggle-mocha-test-block ()
+(defun toggle-test-block ()
   "Toggle .only setting on nearest outer mocha describe/it block. Toggles first block if in top-level block."
   (interactive)
   (end-of-line)
-  (let ((mocha-patterns "it(\\|it\.only(\\|describe(\\|describe\.only")
+  (let ((test-patterns "it(\\|it\.only(\\|describe(\\|describe\.only(\\|test(\\|test\.only")
         (toggle (lambda ()
                   (cond
+                   ((looking-at "test.only(") (replace-match "test("))
+                   ((looking-at "test(") (replace-match "test.only("))
                    ((looking-at "it.only(") (replace-match "it("))
                    ((looking-at "it(") (replace-match "it.only("))
                    ((looking-at "describe.only(") (replace-match "describe("))
                    ((looking-at "describe(") (replace-match "describe.only("))))))
-    (if (re-search-backward mocha-patterns nil t)
+    (if (re-search-backward test-patterns nil t)
         (funcall toggle)
-      (progn (re-search-forward mocha-patterns)
+      (progn (re-search-forward test-patterns)
              (beginning-of-line)
              (funcall toggle)))))
 
@@ -202,7 +257,7 @@
 
 
 (global-set-key (kbd "C-c j r") 'rm-console-logs)
-(global-set-key (kbd "C-c j o") 'toggle-mocha-test-block)
+(global-set-key (kbd "C-c j o") 'toggle-test-block)
 
 (global-set-key (kbd "C-c j a") 'albert-js-asyncify)
 (global-set-key (kbd "C-c j p") 'albert-js-departial)

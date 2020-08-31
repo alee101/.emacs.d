@@ -44,5 +44,5 @@
  '(js2-indent-switch-body t)
  '(package-selected-packages
    (quote
-    (ghub git-commit haskell-mode helm-core tern tide typescript-mode web-mode with-editor gited rainbow-delimiters s paredit smartparens flycheck company yasnippet git-timemachine magit helm-projectile projectile wgrep-helm helm-descbinds helm-git-grep helm-swoop helm undo-tree diminish use-package))))
+    (rust-mode company-irony irony go-mode restclient erlang terraform-mode scala-mode elixir-mode ghub git-commit haskell-mode helm-core tern tide typescript-mode web-mode with-editor gited rainbow-delimiters s paredit smartparens flycheck company yasnippet git-timemachine magit helm-projectile projectile wgrep-helm helm-descbinds helm-git-grep helm-swoop helm undo-tree diminish use-package)))
 (put 'dired-find-alternate-file 'disabled nil)

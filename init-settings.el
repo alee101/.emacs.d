@@ -8,7 +8,7 @@
 (column-number-mode t)
 
 (when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+;; (when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
@@ -23,7 +23,7 @@
 
 ;; Backups
 (setq
- backup-directory-alist `(("." . "/usr/local/workspace/emacs/backup"))
+ backup-directory-alist `(("." . "/usr/local/workspace/.emacs/backup"))
  backup-by-copying t
  delete-old-versions t
  kept-new-versions 5
@@ -32,7 +32,7 @@
 
 ;; History
 (setq
- savehist-file "/usr/local/workspace/emacs/savehist"
+ savehist-file "/usr/local/workspace/.emacs/savehist"
  savehist-mode 1
  history-delete-duplicates t
  savehist-save-minibuffer-history 1
@@ -50,3 +50,7 @@
 ;; Appearance
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'zenburn t)
+(set-default-font "Menlo 16")
+
+;; Follow symlinks
+(setq find-file-visit-truename t)

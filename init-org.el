@@ -15,10 +15,14 @@
     (setq
      org-src-fontify-natively t
      org-log-done t
-     org-capture-templates `(("t" "Task" entry (file+headline "/usr/local/workspace/me/refile.org" "Tasks")
+     org-capture-templates `(("t" "Task" entry (file+headline "/usr/local/workspace/refile.org" "Tasks")
                               "* TODO %?\n:CAPTURED: %T\n")
-                             ("n" "Note" plain (file+headline "/usr/local/workspace/me/refile.org" "Notes")
-                              "%?\n:CAPTURED: %T\n" :empty-lines 1)))))
+                             ("n" "Note" plain (file+headline "/usr/local/workspace/refile.org" "Notes")
+                              "%?\n:CAPTURED: %T\n" :empty-lines 1)
+                             ("j" "Journal" entry (file+datetree "/usr/local/workspace/log.org")
+                              "**** %U :journal:\n%?" :tree-type week)
+                             ("b" "Backlog" plain (file+headline "/usr/local/workspace/backlog.org" "Backlog")
+                              "%?\n")))))
 
 (use-package darkroom
   :config

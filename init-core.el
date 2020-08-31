@@ -49,7 +49,7 @@
   :bind (("C-c g" . helm-rg)))
 
 (use-package helm-git-grep
-  :bind (("C-c C-g" . helm-git-grep-at-point)
+  :bind (("C-c C-c C-g" . helm-git-grep-at-point)
          ("C-c d" . helm-grep-do-git-grep)
          ("C-c g" . helm-git-grep))
   :config (define-key isearch-mode-map (kbd "C-c g") 'helm-git-grep-from-isearch))
@@ -94,6 +94,7 @@
 
 (use-package company
   :config
+  (use-package company-irony :ensure t :defer t)
   (progn
     (setq company-dabbrev-downcase nil)
     (setq company-dabbrev-ignore-case nil)
