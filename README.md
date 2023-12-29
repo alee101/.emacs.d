@@ -1,4 +1,4 @@
 .emacs.d
 ========
 
-My emacs settings
+Emacs <=27 settings
