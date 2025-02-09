@@ -41,7 +41,7 @@
 
 ;; Appearance
 (set-face-attribute 'default nil
-                    :family "Menlo" :height 180 :weight 'normal)
+                    :family "Menlo" :height 220 :weight 'normal)
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (load-theme 'zenburn t)
 

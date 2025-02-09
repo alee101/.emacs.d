@@ -5,3 +5,4 @@ recentf
 projectile-bookmarks.eld
 *.elc
 elpa/archives/
+lisp/init-llm.el

@@ -16,6 +16,13 @@
  '(js2-indent-switch-body t))
 
 
+(use-package web-mode
+  :mode (("\\.html?\\'" . web-mode))
+  :config (setq web-mode-markup-indent-offset 2
+                web-mode-css-indent-offset 2
+                web-mode-code-indent-offset 2))
+
+
 (use-package go-mode)
 
 
@@ -23,9 +30,21 @@
   :mode ("\\.api\\'" . restclient-mode))
 
 
+;; for eglot to handle pyenv and virtualenv
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)))
+
+
 (require 'eglot)
+(add-hook 'python-mode-hook 'eglot-ensure)
 (add-hook 'go-mode-hook 'eglot-ensure)
 (add-hook 'go-mode-hook 'eglot-go-on-save-hooks)
+
+;; (setq eglot-server-programs
+;;       '((python-mode . ("pyright"))))
 
 (defun eglot-go-on-save-hooks ()
   (add-hook 'before-save-hook 'eglot-organize-imports nil t)
